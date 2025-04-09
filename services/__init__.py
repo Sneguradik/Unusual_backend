@@ -1,0 +1,1 @@
+from .Service import get_unusual_deals
