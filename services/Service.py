@@ -73,3 +73,4 @@ async def get_unusual_deals(config: dict)->pd.DataFrame:
     raw_data = await db.fetch(build_query(config))
     df = pd.DataFrame([dict(r) for r in raw_data])
     return df
+

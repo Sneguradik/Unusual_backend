@@ -1,5 +1,5 @@
 from datetime import datetime
-
+from services import db
 from quart import Quart
 from services import get_unusual_deals
 
@@ -17,13 +17,15 @@ async def shutdown():
 def hello_world():
     return 'Hello World!'
 
-@app.route('/filter', methods=['GET'])
+@app.route('/filter', methods=['POST'])
 async def filter():
-    df = get_unusual_deals({
+    df = await get_unusual_deals({
         "date_start": datetime(2025, 1, 8),
         "date_finish": datetime(2025, 4, 1),
-        "Currency" : "USD"
+        "currency" : "USD"
     })
+
+
 
 if __name__ == '__main__':
     app.run()
