@@ -1,8 +1,10 @@
 import asyncio
+import csv
+import io
 import os
 from datetime import datetime
 from dotenv import load_dotenv
-from quart import Quart, request
+from quart import Quart, request, Response
 from services import (
 get_unusual_deals, Filter, apply_filter_chain, DbConfig,
 its_kzt_filters_config, its_usd_filters_config,
@@ -103,6 +105,47 @@ async def filter_trades():
         logging.info(f"Dataframe filtered for {body["date_start"]}-{body["date_finish"]} {body['exchange']} {body['currency']}")
 
         return res_df.to_json(orient='records'), 200
+    except Exception as e:
+        return {
+          "title": "Server Error",
+          "status": 500,
+          "detail": str(e),
+        }, 500
+
+@app.route('/filter_csv', methods=['POST'])
+async def filter_trades_csv():
+    try:
+
+        body = await request.get_json()
+        logging.info(f"Filters requested for {body["date_start"]}-{body["date_finish"]} {body['exchange']} {body['currency']}")
+        filters: list[Filter] = [Filter(**el) for el in body['filters']]
+
+        if body['exchange'] == "SPBE": db = spbe_db
+        else: db = its_db
+
+        df = await get_unusual_deals({
+            "date_start": datetime.fromisoformat(body['date_start']),
+            "date_finish": datetime.fromisoformat(body['date_finish']),
+            "currency" : body['currency'],
+        }, db)
+
+        logging.info(f"Dataframe received for {body["date_start"]}-{body["date_finish"]} {body['exchange']} {body['currency']}")
+
+        res_df = apply_filter_chain(df,filters)
+
+        output = io.StringIO()
+        res_df.to_csv(output)
+        csv_data = output.getvalue()
+
+        logging.info(f"Dataframe filtered for {body["date_start"]}-{body["date_finish"]} {body['exchange']} {body['currency']}")
+
+        return Response(
+            csv_data,
+            mimetype="text/csv",
+            headers={
+                "Content-Disposition": "attachment; filename=data.csv",
+            }
+        )
     except Exception as e:
         return {
           "title": "Server Error",
