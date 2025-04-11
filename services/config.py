@@ -1,6 +1,6 @@
 import json
 
-from services import Filter
+from services.Filter import Filter
 
 
 class DbConfig:
