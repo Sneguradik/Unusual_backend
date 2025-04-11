@@ -133,14 +133,10 @@ async def filter_trades_csv():
 
         res_df = apply_filter_chain(df,filters)
 
-        output = io.StringIO()
-        res_df.to_csv(output)
-        csv_data = output.getvalue()
-
         logging.info(f"Dataframe filtered for {body["date_start"]}-{body["date_finish"]} {body['exchange']} {body['currency']}")
 
         return Response(
-            csv_data,
+            res_df.to_csv(index=False),
             mimetype="text/csv",
             headers={
                 "Content-Disposition": "attachment; filename=data.csv",
