@@ -1,12 +1,20 @@
 import asyncpg
-from .config import DB_CONFIG
+from .config import DbConfig
+
 
 class Postgres:
     def __init__(self):
         self.pool = None
 
-    async def connect(self):
-        self.pool = await asyncpg.create_pool(**DB_CONFIG)
+    async def connect(self, db_config : DbConfig):
+        conf = {
+            "user": db_config.user,
+            "password": db_config.password,
+            "database": db_config.database,
+            "host": db_config.host,
+            "port": db_config.port,
+        }
+        self.pool = await asyncpg.create_pool(**conf)
 
     async def close(self):
         if self.pool:
@@ -24,4 +32,5 @@ class Postgres:
         async with self.pool.acquire() as conn:
             return await conn.execute(query, *args)
 
-db = Postgres()
+its_db = Postgres()
+spbe_db = Postgres()

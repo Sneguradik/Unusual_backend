@@ -12,7 +12,7 @@ class Filter:
         self.active = active
 
     def apply(self, df:pd.DataFrame) -> pd.DataFrame:
-        if not self.active : return df
+        if (not self.active ) or (self.name not in df.columns): return df
 
         if self.type == "And":
             res_df : pd.DataFrame
@@ -58,3 +58,14 @@ class Filter:
             return df
 
         else: return df
+
+    def to_dict(self)->dict:
+        return {
+            "name": self.name,
+            "description": self.description,
+            "condition": self.condition,
+            "value": self.value,
+            "type": self.type,
+            "useTrigger": self.useTrigger,
+            "active": self.active,
+        }

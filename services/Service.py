@@ -1,5 +1,8 @@
 import pandas as pd
-from .db import db
+
+from . import Filter
+from .db import Postgres
+
 
 def build_query(config: dict) -> str:
 
@@ -12,7 +15,7 @@ def build_query(config: dict) -> str:
     and trade_mode in ('Режим основных торгов') 
     and section_code in ('EQF', 'EBOND', 'EQCIS', 'EQR')),
 
-    raw_data as (select tr.trade_date, currency, trade_member_name, account, client_code, client_legal_code,
+    raw_data as (select tr.trade_date, tr.asset_code, currency, trade_member_name, account, client_code, client_legal_code,
     count(distinct contra_client_code) as contra_clients_qty, -- count of contra clients
     count(distinct tr.asset_code) as traded_assets, 
     count(distinct deal_id) as deals_qty, 
@@ -63,14 +66,18 @@ def build_query(config: dict) -> str:
         and currency in ('{config["currency"]}')
         and client_code not in ({",".join(map(lambda x: f"'{x}'", config["exclude_codes"]))})
 
-        group by tr.trade_date, currency, trade_member_name, account, client_code, client_legal_code)
+        group by tr.trade_date, tr.asset_code, currency, trade_member_name, account, client_code, client_legal_code)
 
         select * from raw_data
     """
 
 
-async def get_unusual_deals(config: dict)->pd.DataFrame:
+async def get_unusual_deals(config: dict, db: Postgres)->pd.DataFrame:
     raw_data = await db.fetch(build_query(config))
     df = pd.DataFrame([dict(r) for r in raw_data])
     return df
 
+def apply_filter_chain(df: pd.DataFrame, filters: list[Filter])->pd.DataFrame:
+    res_df = df
+    for f in filters: res_df = f.apply(res_df)
+    return res_df

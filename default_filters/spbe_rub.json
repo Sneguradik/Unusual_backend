@@ -1,0 +1,218 @@
+[
+    {
+        "name": "contra_clients_qty",
+        "description": "Кол-во контрагентов у клиента",
+        "condition": "Equals",
+        "value": 1,
+        "type": "And",
+        "useTrigger": true,
+        "active": true
+    },
+    {
+        "name": "traded_assets",
+        "description": "Кол-во проторгованных тикеров",
+        "condition": "Equals",
+        "value": 1,
+        "type": "And",
+        "useTrigger": true,
+        "active": true
+    },
+    {
+        "name": "deals_qty",
+        "description": "Кол-во сделок",
+        "condition": "Equals",
+        "value": 1,
+        "type": "And",
+        "useTrigger": true,
+        "active": true
+    },
+    {
+        "name": "avg_deals_per_contra",
+        "description": "Среднее кол-во сделок на контрагента",
+        "condition": "Equals",
+        "value": 1,
+        "type": "And",
+        "useTrigger": true,
+        "active": true
+    },
+    {
+        "name": "orders_qty",
+        "description": "Кол-во ордеров по которым были сделки",
+        "condition": "Equals",
+        "value": 1,
+        "type": "And",
+        "useTrigger": true,
+        "active": true
+    },
+    {
+        "name": "avg_orders_per_contra",
+        "description": "Среднее кол-во ордеров на контрагента",
+        "condition": "Equals",
+        "value": 1,
+        "type": "And",
+        "useTrigger": true,
+        "active": true
+    },
+    {
+        "name": "avg_orders_per_asset",
+        "description": "Среднее кол-во ордеров на тикер",
+        "condition": "Equals",
+        "value": 1,
+        "type": "And",
+        "useTrigger": true,
+        "active": true
+    },
+    {
+        "name": "min_deal_time",
+        "description": "Время первой сделки",
+        "condition": "Equals",
+        "value": 1,
+        "type": "And",
+        "useTrigger": true,
+        "active": true
+    },
+    {
+        "name": "max_deal_time",
+        "description": "Время последней сделки",
+        "condition": "Equals",
+        "value": 1,
+        "type": "And",
+        "useTrigger": true,
+        "active": true
+    },
+    {
+        "name": "deal_time_delta",
+        "description": "Время между первой и последней сделкой в секундах",
+        "condition": "Equals",
+        "value": 1,
+        "type": "And",
+        "useTrigger": true,
+        "active": true
+    },
+    {
+        "name": "avg_time_btw_orders_secs",
+        "description": "Среднее время между ордерами в секундах",
+        "condition": "Equals",
+        "value": 1,
+        "type": "And",
+        "useTrigger": true,
+        "active": true
+    },
+    {
+        "name": "vol_money",
+        "description": "Объем в деньгах",
+        "condition": "Equals",
+        "value": 1,
+        "type": "And",
+        "useTrigger": true,
+        "active": true
+    },
+    {
+        "name": "avg_vol_per_contra",
+        "description": "Средний объем в деньгах на контрагента",
+        "condition": "Equals",
+        "value": 1,
+        "type": "And",
+        "useTrigger": true,
+        "active": true
+    },
+    {
+        "name": "vol_lots",
+        "description": "Объем в лотах",
+        "condition": "Equals",
+        "value": 1,
+        "type": "And",
+        "useTrigger": true,
+        "active": true
+    },
+    {
+        "name": "avg_deal_vol",
+        "description": "Средний объем сделки",
+        "condition": "Equals",
+        "value": 1,
+        "type": "And",
+        "useTrigger": true,
+        "active": true
+    },
+    {
+        "name": "max_deal_vol",
+        "description": "Максимальный объем сделки",
+        "condition": "Equals",
+        "value": 1,
+        "type": "And",
+        "useTrigger": true,
+        "active": true
+    },
+    {
+        "name": "avg_deal_price",
+        "description": "Средняя цена сделки",
+        "condition": "Equals",
+        "value": 1,
+        "type": "And",
+        "useTrigger": true,
+        "active": true
+    },
+    {
+        "name": "fin_res",
+        "description": "Фин рез, расчитывается с учетом остаточной позиции при группировке по дням берет цену закрытия бумаги у последнего дня в заданном периоде, при отсутствии группировки берет цену закрытия бумаги на каждый отдельный день",
+        "condition": "Equals",
+        "value": 1,
+        "type": "And",
+        "useTrigger": true,
+        "active": true
+    },
+    {
+        "name": "fin_res_abs",
+        "description": "Абсолютное значение фин реза",
+        "condition": "Equals",
+        "value": 1,
+        "type": "And",
+        "useTrigger": true,
+        "active": true
+    },
+    {
+        "name": "fin_res_ext",
+        "description": "Фин рез по внешней ликвидности",
+        "condition": "Equals",
+        "value": 1,
+        "type": "And",
+        "useTrigger": true,
+        "active": true
+    },
+    {
+        "name": "fin_res_ext_abs",
+        "description": "Абсолютное значение фин реза по внешней ликвидности",
+        "condition": "Equals",
+        "value": 1,
+        "type": "And",
+        "useTrigger": true,
+        "active": true
+    },
+    {
+        "name": "fin_res_int",
+        "description": "Фин рез по внутренней ликвидности",
+        "condition": "Equals",
+        "value": 1,
+        "type": "And",
+        "useTrigger": true,
+        "active": true
+    },
+    {
+        "name": "fin_res_int_abs",
+        "description": "Абсолютное значение фин реза по внутренней ликвидности",
+        "condition": "Equals",
+        "value": 1,
+        "type": "And",
+        "useTrigger": true,
+        "active": true
+    },
+    {
+        "name": "Cost",
+        "description": "Кост считается только для заявок внешней ликвидности",
+        "condition": "Equals",
+        "value": 1,
+        "type": "And",
+        "useTrigger": true,
+        "active": true
+    }
+]
