@@ -17,19 +17,19 @@ class Filter:
         if self.type == "And":
             res_df : pd.DataFrame
 
-            match self.condition:
-                case "Equals":
-                    res_df = df.loc[df[self.name] == self.value]
-                case "Less":
-                    res_df = df.loc[df[self.name] < self.value]
-                case "Greater":
-                    res_df = df.loc[df[self.name] > self.value]
-                case "LessOrEquals":
-                    res_df = df.loc[df[self.name] <= self.value]
-                case "GreaterOrEquals":
-                    res_df = df.loc[df[self.name] >= self.value]
-                case _:
-                    res_df = df.loc[df[self.name] == self.value]
+
+            if self.condition == "Equals":
+                res_df = df.loc[df[self.name] == self.value]
+            elif self.condition == "Less":
+                res_df = df.loc[df[self.name] < self.value]
+            elif self.condition == "Greater":
+                res_df = df.loc[df[self.name] > self.value]
+            elif self.condition == "LessOrEquals":
+                res_df = df.loc[df[self.name] <= self.value]
+            elif self.condition == "GreaterOrEquals":
+                res_df = df.loc[df[self.name] >= self.value]
+            else:
+                res_df = df.loc[df[self.name] == self.value]
 
             if self.useTrigger:
                 if "triggers" in res_df.columns: res_df["triggers"] = 1
